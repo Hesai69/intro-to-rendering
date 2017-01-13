@@ -13,5 +13,50 @@
 <body>
   <h1>Hello from Public</h1>
 
+  <template id="list">
+    <ul>
+      {{#each list}}
+      <li>{{this}}</li>
+      {{/each}}
+    </ul>
+  </template>
+
+  <script>
+    // $.get('/list.json', function(res) {
+    //   render(res);
+    // });
+    // function render(list) {
+    //   // output the list as HTML unordered list
+    //   // append to DOM
+    //   var ul = $('<ul>');
+    //   list.forEach(function(el) {
+    //     $('<li>').text(el).appendTo(ul);
+    //   });
+    //   ul.appendTo($('body'));
+    // }
+
+    // do an XHR to '/list.json' use handlebars template to render data
+    $.get('/list.json', function(res){
+      var template = $('#list').html();
+      var render = Handlebars.compile(template);
+      var html = render({list: res});
+      $('body').append(html);
+    });
+
+    // var locals = {
+    //   list: [ {name: 'Mulder'},
+    //   {name: 'Scully'},
+    //   {name: 'Qwerty'} ]
+    // };
+
+    // // this gets a string
+    // var htmlTemplate = $('#list').html();
+    // // return a function
+    // var renderTemplate = Handlebars.compile(htmlTemplate);
+    // // returns a string
+    // var html = renderTemplate(locals);
+    // $('body').append(html);
+  </script>
+
 </body>
 </html>
